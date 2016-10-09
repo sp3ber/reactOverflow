@@ -4,7 +4,6 @@ import cn from 'classnames';
 import './styles.scss';
 
 const Input = (props) => {
-
   const { className, ...inputProps } = props;
 
   return (

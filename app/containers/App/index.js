@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import './App.scss';
-import 'reset-css/reset.css'
+import 'reset-css/reset.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import SearchForm from '../../components/SearchForm';
+import './app.scss';
 
 class App extends Component {
+  static propTypes = {
+    children: PropTypes.node
+  };
   render() {
     return (
       <div className="app">

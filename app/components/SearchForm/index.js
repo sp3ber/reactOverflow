@@ -9,27 +9,39 @@ class SearchForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    initialValue: PropTypes.string,
     onChange: PropTypes.func,
     className: PropTypes.string
   };
 
-  constructor () {
-    super();
+  constructor(props) {
+    super(props);
     this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
-  onChangeHandler (e) {
+  state = {
+    value: this.props.value || this.props.initialValue || ''
+  };
+
+  onSubmitHandler(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state.value);
+  }
+
+  onChangeHandler(e) {
     const value = e.target.value;
-    if (this.props.onChange) {
-      this.props.onChange(value);
+    if (this.props.onChange && this.props.value) {
+      return this.props.onChange(value);
     }
+    return this.setState({
+      value
+    });
   }
 
-  render () {
+  render() {
     const {
-      onSubmit,
-      value,
       placeholder,
       className
     } = this.props;
@@ -40,13 +52,13 @@ class SearchForm extends Component {
         className
       )}>
         <div className="search-form__inner">
-          <form className="search-form__area" onSubmit={onSubmit}>
+          <form className="search-form__area" onSubmit={this.onSubmitHandler}>
             <div className="search-form__cell search-form__fields">
               <Input
                 className="search-form__input"
                 type="text"
                 onChange={this.onChangeHandler}
-                value={value}
+                value={this.state.value}
                 placeholder={placeholder}
               />
             </div>

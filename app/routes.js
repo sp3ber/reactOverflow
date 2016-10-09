@@ -1,14 +1,15 @@
 import React from 'react';
-import { IndexRoute, Route }  from 'react-router';
+import { Route } from 'react-router';
+import { index, search } from './constants/routes';
 import App from './containers/App';
 import MainPage from './containers/pages/MainPage';
-import QuestionsTableContainer from './containers/QuestionsTableContainer';
+import SearchPage from './containers/pages/SearchPage';
 
 
 export default (
   <Route component={App}>
-    <Route component={MainPage} path="/">
-      <Route path='search' component={QuestionsTableContainer} />
+    <Route component={MainPage} path={index}>
+      <Route path={search} component={SearchPage} />
     </Route>
   </Route>
 );
