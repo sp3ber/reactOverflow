@@ -13,7 +13,8 @@ class MainPage extends Component {
     this.onSearchFormSubmit = this.onSearchFormSubmit.bind(this);
   }
   onSearchFormSubmit(value) {
-    browserHistory.push(`${search}?${searchQueryName}=${value}`);
+    const query = encodeURI(value);
+    browserHistory.push(`${search}?${searchQueryName}=${query}`);
   }
   render() {
     const initialValue = this.props.location.query[searchQueryName] || '';

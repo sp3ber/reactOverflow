@@ -2,26 +2,49 @@ const express = require('express');
 const request = require('request-promise');
 
 const router = express.Router();
-const answers = ['hello' , 'world'];
-const options = {
+const getQueryUrl = (title) => {
+  const urifiedTitle = encodeURIComponent(title);
+  return `http://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&site=stackoverflow&q=${urifiedTitle}`;
+};
+const defaultOptions = {
   method: 'GET',
-  uri: 'http://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&site=stackoverflow&q=indexRoute',
-  //uri: 'http://api.petfinder.com/my.method?key=12345&arg1=foo&token=67890&sig=abcdef',
   json: true,
   gzip: true
 };
 const simpleCache = {};
 
-router.get('/answers', function(req, res){
-  console.log(req.query.title);
+router.get('/questions', function(req, res){
+  const titleParam = req.query.title;
+  if (!isTitleQueryValid(titleParam)) {
+    return res.json({
+      success: false,
+      error: 'Invalid query param'
+    })
+  }
+  const options = Object.assign({}, defaultOptions, {
+    uri: getQueryUrl(titleParam.trim())
+  });
+  let cacheKey = JSON.stringify(options);
+  if (simpleCache[cacheKey]) {
+    return res.json(simpleCache[cacheKey]);
+  }
   request(options)
     .then(function (response) {
-      res.json(response);
+      simpleCache[cacheKey] = response;
+      return res.json(response);
     })
     .catch(function (err) {
       // Something bad happened, handle the error
-      console.log('there is error');
+      console.log(err);
+      return res.json({
+        success: false,
+        error: 'Stack api is not available'
+      })
     });
 });
+
+function isTitleQueryValid (title) {
+  return typeof title == 'string' && title.trim().length;
+}
 
 module.exports = router;
