@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>BE2966BF-6820-44E9-8351-CBCF3800B12C</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="395" y="2641" width="1130" height="55" rx="5"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="1130" height="55" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Landing-15-october" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing" transform="translate(-415.000000, -2658.000000)">
+            <use id="Rectangle-10" stroke="#D8D8D8" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <path d="M423.851,2673.94 C419.938,2673.94 416.757,2670.76 416.757,2666.851 C416.757,2662.942 419.938,2659.757 423.851,2659.757 C427.76,2659.757 430.945,2662.942 430.945,2666.851 C430.945,2670.76 427.76,2673.94 423.851,2673.94 M435.745,2677.511 L430.696,2672.461 C431.948,2670.935 432.702,2668.981 432.702,2666.851 C432.702,2661.964 428.737,2658 423.851,2658 C418.96,2658 415,2661.964 415,2666.851 C415,2671.737 418.96,2675.702 423.851,2675.702 C425.981,2675.702 427.931,2674.952 429.457,2673.7 L434.507,2678.745 C434.849,2679.088 435.402,2679.088 435.745,2678.745 C436.088,2678.406 436.088,2677.849 435.745,2677.511" id="Fill-1" fill="#231F1F" opacity="0.5"></path>
+        </g>
+    </g>
+</svg>

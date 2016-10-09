@@ -1,0 +1,46 @@
+.search-form {
+
+  &__inner {
+    display: table;
+    width: 100%;
+  }
+
+  &__area {
+    display: table-row;
+  }
+
+  &__cell {
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  &__fields {
+    width: 100%;
+  }
+
+  &__controls {
+    float: right;
+  }
+
+  &__sbm-btn {
+    height: 55px;
+    padding: 16px 78px 18px 78px;
+    color: white;
+    background: #00a3e0;
+    text-align: center;
+    border-radius: 0 5px 5px 0;
+    border: 0;
+    font-size: 17px;
+  }
+
+  //overrides for input
+  :root &__input {
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+    padding-left: 55px;
+    font-size: 17px;
+    background-image: url('./SearchIcon.svg');
+    background-repeat: no-repeat;
+    background-position: 20px center;
+  }
+}

@@ -1,0 +1,36 @@
+$color-border-default: #d0d0d0;
+$color-border-disable: transparent;
+$color-border-focus: #cacaca;
+$color-bg-disable: #e5e5e5;
+$color-bg-error: #ffdede;
+$color-border-error: $color-bg-error;
+$text-color: black;
+
+.form-input {
+  width: 100%;
+  position: relative;
+  height: 55px;
+
+  &__area {
+    color: $text-color;
+    height: 100%;
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    border: 1px solid $color-border-default;
+
+    &:focus,
+    &:hover {
+      border-color: $color-border-focus;
+    }
+
+    &--disable,
+    &:disabled {
+      background: $color-bg-disable;
+      border-color: $color-border-disable;
+    }
+  }
+}
