@@ -8,13 +8,13 @@ module.exports = {
     filename: 'app.js'
   },
   module: {
-    preLoaders: [
+    /*preLoaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
-    ],
+    ],*/
     loaders: [
       {
         test: /\.js/,

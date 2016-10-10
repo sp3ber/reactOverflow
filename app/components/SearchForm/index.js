@@ -9,7 +9,6 @@ class SearchForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
     initialValue: PropTypes.string,
     onChange: PropTypes.func,
     className: PropTypes.string
@@ -22,7 +21,7 @@ class SearchForm extends Component {
   }
 
   state = {
-    value: this.props.value || this.props.initialValue || ''
+    value: this.props.initialValue || ''
   };
 
   onSubmitHandler(e) {
@@ -32,12 +31,20 @@ class SearchForm extends Component {
 
   onChangeHandler(e) {
     const value = e.target.value;
-    if (this.props.onChange && this.props.value) {
-      return this.props.onChange(value);
+    if (this.props.onChange ) {
+      this.props.onChange(value);
     }
     return this.setState({
       value
     });
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (newProps.initialValue !== this.props.initialValue) {
+      this.setState({
+        value: newProps.initialValue
+      });
+    }
   }
 
   render() {

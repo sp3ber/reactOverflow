@@ -1,7 +1,8 @@
 import {
   QUESTIONS_REQUEST_STARTED,
   QUESTIONS_REQUEST_FINISHED,
-  QUESTIONS_REQUEST_ERROR } from '../actions/questionsActions';
+  QUESTIONS_REQUEST_ERROR,
+  CLEAR_QUESTIONS } from '../actions/questionsActions';
 
 const initialState = {
   items: [],
@@ -17,7 +18,16 @@ export default function (state = initialState, action) {
       return {
         loading: false,
         errors: null,
-        items: action.questions
+        items: action.payload.questions,
+        has_more: action.payload.has_more,
+        current_page: action.payload.current_page
+      };
+    case CLEAR_QUESTIONS:
+      return {
+        loading: false,
+        errors: null,
+        items: [],
+        has_more: false
       };
     case QUESTIONS_REQUEST_ERROR:
       return Object.assign({}, state, { loading: false, errors: action.errors });

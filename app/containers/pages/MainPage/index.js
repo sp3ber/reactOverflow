@@ -3,6 +3,8 @@ import { browserHistory } from 'react-router'
 import { search, searchQueryName } from '../../../constants/routes';
 import SearchForm from '../../../components/SearchForm';
 
+import './styles.scss';
+
 class MainPage extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -17,20 +19,26 @@ class MainPage extends Component {
     browserHistory.push(`${search}?${searchQueryName}=${query}`);
   }
   render() {
-    const initialValue = this.props.location.query[searchQueryName] || '';
+    const initialValue = this.props.location.query[searchQueryName] ||
+      'Если React это как стул с пиками точеными, то получается, что Angular ...?';
     return (
       <div className="main-page">
         <section className="main-page__form">
-          <div className="container p-t-2 p-b-2">
-            <h2 className="m-b-1">Enter you question, mr.</h2>
+          <div className="container p-t-3 p-b-3">
+            <h2 className="m-b-1">Enter your question</h2>
             <SearchForm
               initialValue={initialValue}
               onSubmit={this.onSearchFormSubmit}/>
           </div>
         </section>
-        <main>
-          {this.props.children}
-        </main>
+        <section className="main-page__present container">
+          <p className="main-page__p p-t-1 p-b-1">
+            This is the best Miha's service sponcored by
+          </p>
+          <div className="main-page__brand-logo ">
+            <span className="sr-only">Stack Overflow</span>
+          </div>
+        </section>
       </div>
     );
   }

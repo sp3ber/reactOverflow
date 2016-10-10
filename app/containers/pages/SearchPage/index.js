@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { searchQueryName } from '../../../constants/routes';
+import { search, searchQueryName } from '../../../constants/routes';
 import { questionsRequest } from '../../../actions/questionsActions';
+import SearchForm from '../../../components/SearchForm';
+import InvalidSearchResult from '../../../components/InvalidSearchResult'
 
 class SearchPage extends Component {
   static propTypes = {
@@ -14,37 +17,53 @@ class SearchPage extends Component {
     this.getQuestions();
   }
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.location.query[searchQueryName]!==
-      this.props.location.query[searchQueryName]
-    ) {
-      console.info('query changed!');
-      this.getQuestions();
+    const newQuery = nextProps.location.query[searchQueryName];
+    const oldQuery = this.props.location.query[searchQueryName];
+    if ( newQuery !== oldQuery){
+      this.getQuestions(newQuery);
     }
   }
-  getQuestions() {
-    const question = this.props.location.query[searchQueryName];
+  onSearchFormSubmit(value) {
+    const query = encodeURI(value);
+    browserHistory.push(`${search}?${searchQueryName}=${query}`);
+  }
+  getQuestions(query) {
+    const question = query || this.props.location.query[searchQueryName];
     if (typeof question === 'string') {
       this.props.questionsRequest(question);
     }
   }
   render() {
-    const { questionsRequest, location } = this.props;
+    const { location } = this.props;
     const { query } = location;
     const { [searchQueryName]: question } = query;
-    console.info(this.props.questions);
     return (
-      <div className="container">
-        Результат по запросу {question}
-        <div></div>
-      </div>
+      <section className="container">
+        <div className="p-t-2 p-b-2">
+          <SearchForm onSubmit={this.onSearchFormSubmit} initialValue={question} />
+        </div>
+        {
+          this.props.hasMoreQuestions && 'has more queestions!'
+        }
+        <div className="p-t-2 p-b-2">
+          {
+            !this.props.questions.length ?
+              <InvalidSearchResult
+                title="hello world"
+                isError
+              />
+              :
+              JSON.stringify(this.props.questions)
+          }
+        </div>
+      </section>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { items: questions } = state.questions;
-  return { questions };
+  const { items: questions, has_more: hasMoreQuestions, currentPage } = state.questions;
+  return { questions, hasMoreQuestions, currentPage };
 }
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   questionsRequest,
