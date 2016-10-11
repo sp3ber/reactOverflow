@@ -54,15 +54,16 @@ class SearchPage extends Component {
         <div className="p-t-2 p-b-2">
           <SearchForm onSubmit={this.onSearchFormSubmit} initialValue={question} />
         </div>
-        <div className="p-t-2 p-b-2">
+        <div className="p-t-2 p-b-2 search-page__content">
           {
-            (!questions.length && !loading) ?
+            !questions.length && !loading &&
               <InvalidSearchResult
-                title="hello world"
+                title="No result"
                 isError
               />
-              :
-              <QuestionsTable questions={questions} />
+          }
+          {
+            !!questions.length && <QuestionsTable questions={questions} />
           }
         </div>
         <div className="search-page__controls">
