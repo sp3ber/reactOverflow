@@ -2,36 +2,25 @@ const express = require('express');
 const request = require('request-promise');
 
 const router = express.Router();
-const API_URL = 'http://api.stackexchange.com/2.2/search/advanced';
-const getQueryUrl = (title) => {
-  const urifiedTitle = encodeURIComponent(title);
-  return `http://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&site=ru.stackoverflow&q=${urifiedTitle}`;
-};
+const API_URL = 'http://api.stackexchange.com/2.2/search';
 const defaultOptions = {
   method: 'GET',
   json: true,
   gzip: true,
-  uri: 'http://api.stackexchange.com/2.2/search/advanced',
+  uri: API_URL
+};
+const defaultQueryOptions = {
+  order: "desc",
+  sort: "relevance",
+  site: "stackoverflow"
 };
 const simpleCache = {};
 
 router.get('/questions', function(req, res){
-  const titleParam = req.query.title;
-  if (!isTitleQueryValid(titleParam)) {
-    return res.json({
-      success: false,
-      error: 'Invalid query param'
-    })
-  }
-  const options = Object.assign({}, defaultOptions, {
-    uri: API_URL,
-    qs: {
-      order: "desc",
-      sort: "relevance",
-      site: "stackoverflow",
-      q: titleParam
-    }
-  });
+  const queryParams = req.query;
+  const options = Object.assign({}, defaultOptions);
+  options.qs = Object.assign({}, defaultQueryOptions, queryParams);
+
   let cacheKey = JSON.stringify(options);
   if (simpleCache[cacheKey]) {
     return res.json(simpleCache[cacheKey]);
@@ -46,7 +35,8 @@ router.get('/questions', function(req, res){
       console.log(err);
       return res.json({
         success: false,
-        error: 'Stack api is not available'
+        error: 'Stack api is not available',
+        err
       })
     });
 });

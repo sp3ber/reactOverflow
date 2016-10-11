@@ -1,0 +1,67 @@
+@keyframes load3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.button {
+  height: 55px;
+  padding: 16px 78px 18px 78px;
+  color: white;
+  background: $color-brand-primary;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+  font-size: 17px;
+  position: relative;
+
+  &:disabled {
+    background: $color-brand-disabled;
+  }
+
+  &__loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ffffff;
+    background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    animation: load3 1.4s infinite linear;
+    transform: translateZ(0);
+
+    &:before {
+      width: 50%;
+      height: 50%;
+      background: #ffffff;
+      border-radius: 100% 0 0 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+    }
+
+    &:after {
+      background: $color-brand-primary;
+      width: 75%;
+      height: 75%;
+      border-radius: 50%;
+      content: '';
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &:disabled &__loader:after {
+    background: $color-brand-disabled;
+  }
+}

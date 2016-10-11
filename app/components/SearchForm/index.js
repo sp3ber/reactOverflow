@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import './styles.scss';
 
@@ -23,28 +24,25 @@ class SearchForm extends Component {
   state = {
     value: this.props.initialValue || ''
   };
-
-  onSubmitHandler(e) {
-    e.preventDefault();
-    this.props.onSubmit(this.state.value);
-  }
-
-  onChangeHandler(e) {
-    const value = e.target.value;
-    if (this.props.onChange ) {
-      this.props.onChange(value);
-    }
-    return this.setState({
-      value
-    });
-  }
-
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.initialValue !== this.props.initialValue) {
       this.setState({
         value: newProps.initialValue
       });
     }
+  }
+  onSubmitHandler(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state.value);
+  }
+  onChangeHandler(e) {
+    const value = e.target.value;
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+    return this.setState({
+      value
+    });
   }
 
   render() {
@@ -70,9 +68,9 @@ class SearchForm extends Component {
               />
             </div>
             <div className="search-form__cell search-form__controls">
-              <button type="submit" className="search-form__sbm-btn">
+              <Button type="submit" className="search-form__sbm-btn">
                 Find
-              </button>
+              </Button>
             </div>
           </form>
         </div>

@@ -1,32 +1,43 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { search, searchQueryName } from '../../../constants/routes';
-import { questionsRequest } from '../../../actions/questionsActions';
+import { questionsRequest, clearQuestions } from '../../../actions/questionsActions';
 import SearchForm from '../../../components/SearchForm';
-import InvalidSearchResult from '../../../components/InvalidSearchResult'
+import Button from '../../../components/Button';
+import InvalidSearchResult from '../../../components/InvalidSearchResult';
+
+import './styles.scss';
 
 class SearchPage extends Component {
   static propTypes = {
-    location: PropTypes.object,
-    questionsRequest: PropTypes.func,
-    questions: PropTypes.array
+    location: PropTypes.object.isRequired,
+    questionsRequest: PropTypes.func.isRequired,
+    questions: PropTypes.array,
+    clearQuestions: PropTypes.func.isRequired,
+    hasMoreQuestions: PropTypes.bool,
+    loading: PropTypes.bool
   };
+  constructor(props) {
+    super(props);
+    this.onSearchFormSubmit = this.onSearchFormSubmit.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
+    this.onGetMoreHandler = this.onGetMoreHandler.bind(this);
+  }
   componentDidMount() {
     this.getQuestions();
   }
-  componentWillReceiveProps(nextProps) {
-    const newQuery = nextProps.location.query[searchQueryName];
-    const oldQuery = this.props.location.query[searchQueryName];
-    if ( newQuery !== oldQuery){
-      this.getQuestions(newQuery);
-    }
-  }
   onSearchFormSubmit(value) {
+    this.props.clearQuestions();
     const query = encodeURI(value);
     browserHistory.push(`${search}?${searchQueryName}=${query}`);
+    this.getQuestions(query);
   }
+  onGetMoreHandler() {
+    this.getQuestions();
+  }
+
   getQuestions(query) {
     const question = query || this.props.location.query[searchQueryName];
     if (typeof question === 'string') {
@@ -34,26 +45,35 @@ class SearchPage extends Component {
     }
   }
   render() {
-    const { location } = this.props;
+    const { location, hasMoreQuestions, questions, loading } = this.props;
     const { query } = location;
     const { [searchQueryName]: question } = query;
     return (
-      <section className="container">
+      <section className="search-page container">
         <div className="p-t-2 p-b-2">
           <SearchForm onSubmit={this.onSearchFormSubmit} initialValue={question} />
         </div>
-        {
-          this.props.hasMoreQuestions && 'has more queestions!'
-        }
         <div className="p-t-2 p-b-2">
           {
-            !this.props.questions.length ?
+            (!questions.length && !loading) ?
               <InvalidSearchResult
                 title="hello world"
                 isError
               />
               :
-              JSON.stringify(this.props.questions)
+              JSON.stringify(questions)
+          }
+        </div>
+        <div className="search-page__controls">
+          {
+            hasMoreQuestions &&
+              <Button
+                disabled={loading}
+                isLoading={loading}
+                type="button"
+                onClick={this.onGetMoreHandler}>
+                Get more questions
+              </Button>
           }
         </div>
       </section>
@@ -62,11 +82,16 @@ class SearchPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { items: questions, has_more: hasMoreQuestions, currentPage } = state.questions;
-  return { questions, hasMoreQuestions, currentPage };
+  const {
+    items: questions,
+    has_more: hasMoreQuestions,
+    loading
+  } = state.questions;
+  return { questions, hasMoreQuestions, loading };
 }
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   questionsRequest,
+  clearQuestions
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

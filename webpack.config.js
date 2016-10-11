@@ -8,13 +8,13 @@ module.exports = {
     filename: 'app.js'
   },
   module: {
-    /*preLoaders: [
+    preLoaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
-    ],*/
+    ],
     loaders: [
       {
         test: /\.js/,
@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.scss/,
-        loader: 'style!css!sass!postcss'
+        loader: 'style!css!sass!postcss!sass-resources'
       },
       {
         test: /\.css/,
@@ -41,5 +41,6 @@ module.exports = {
       }
     ]
   },
-  postcss: () => [autoprefixer]
+  postcss: () => [autoprefixer],
+  sassResources: ['./app/assets/scss/variables.scss']
 };

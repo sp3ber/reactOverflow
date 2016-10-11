@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_URL, PAGE_SIZE } from '../constants/api';
+import { searchQueryName } from '../constants/routes';
 
 export const QUESTIONS_REQUEST_STARTED = 'QUESTIONS_REQUEST_STARTED';
 export const QUESTIONS_REQUEST_FINISHED = 'QUESTIONS_REQUEST_FINISHED';
@@ -18,25 +19,30 @@ function questionsRequestError(error) {
   return { type: QUESTIONS_REQUEST_ERROR, error };
 }
 
-export function questionsRequest(title, current_page = 0, page_size = PAGE_SIZE) {
-  return (dispatch) => {
+export function questionsRequest(q, page, pagesize = PAGE_SIZE) {
+  return (dispatch, getState) => {
+    const pageToLoad = page ? getState().questions.page + 1 : 1;
     dispatch(questionsRequestStarted());
     return axios(`${API_URL}/questions?`, {
       params: {
-        title,
-        current_page,
-        page_size
+        [searchQueryName]: q,
+        page: pageToLoad,
+        pagesize
       }
     })
-      .then((response)=>(
+      .then((response) => (
         dispatch(questionRequestFinished({
           questions: response.data.items,
           has_more: response.data.has_more,
-          current_page
+          page: pageToLoad
         }))
       ))
-      .catch((err)=>(
+      .catch((err) => (
         dispatch(questionsRequestError(err))
-      ))
+      ));
   };
+}
+
+export function clearQuestions() {
+  return { type: CLEAR_QUESTIONS };
 }

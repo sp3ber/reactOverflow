@@ -21,6 +21,10 @@ module.exports = {
     "react/jsx-first-prop-new-line": ["off"],
     "react/jsx-closing-bracket-location": ["off"],
     "react/prefer-stateless-function": ["warn"],
-    "react/jsx-filename-extension": ["off"]
+    "react/jsx-filename-extension": ["off"],
+    "react/forbid-prop-types": ["off"],
+    "class-methods-use-this": ["off"],
+    "no-unescaped-entities": ["off"],
+    "arrow-parens": ["off"]
   },
 };

@@ -7,7 +7,8 @@ import {
 const initialState = {
   items: [],
   errors: null,
-  loading: false
+  loading: false,
+  page: 0
 };
 
 export default function (state = initialState, action) {
@@ -18,16 +19,20 @@ export default function (state = initialState, action) {
       return {
         loading: false,
         errors: null,
-        items: action.payload.questions,
+        items: [
+          ...state.items,
+          ...action.payload.questions
+        ],
         has_more: action.payload.has_more,
-        current_page: action.payload.current_page
+        page: action.payload.page
       };
     case CLEAR_QUESTIONS:
       return {
         loading: false,
         errors: null,
         items: [],
-        has_more: false
+        has_more: false,
+        page: 0
       };
     case QUESTIONS_REQUEST_ERROR:
       return Object.assign({}, state, { loading: false, errors: action.errors });
