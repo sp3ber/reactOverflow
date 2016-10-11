@@ -7,6 +7,7 @@ import { questionsRequest, clearQuestions } from '../../../actions/questionsActi
 import SearchForm from '../../../components/SearchForm';
 import Button from '../../../components/Button';
 import InvalidSearchResult from '../../../components/InvalidSearchResult';
+import QuestionsTable from '../../../components/QuestionsTable';
 
 import './styles.scss';
 
@@ -49,7 +50,7 @@ class SearchPage extends Component {
     const { query } = location;
     const { [searchQueryName]: question } = query;
     return (
-      <section className="search-page container">
+      <section className="search-page container p-t-1 p-b-2">
         <div className="p-t-2 p-b-2">
           <SearchForm onSubmit={this.onSearchFormSubmit} initialValue={question} />
         </div>
@@ -61,7 +62,7 @@ class SearchPage extends Component {
                 isError
               />
               :
-              JSON.stringify(questions)
+              <QuestionsTable questions={questions} />
           }
         </div>
         <div className="search-page__controls">

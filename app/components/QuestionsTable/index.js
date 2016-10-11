@@ -1,34 +1,33 @@
+import React, { PropTypes, Component } from 'react';
+import cn from 'classnames';
+
 const QuestionsTable = (props) => {
+  const { questions } = props;
+  console.log(questions[0]);
   return (
     <table className="table table-striped">
       <thead>
       <tr>
         <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
+        <th>Date</th>
+        <th>Author</th>
+        <th>Title</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
+      {questions.map((question, index) => {
+        return (
+          <tr key={index} className={cn({'table-success': question.is_answered})}>
+            <th scope="row">{index}</th>
+            <td>{question.creation_date}</td>
+            <td>{question.title}</td>
+            <td>{question.owner.display_name}</td>
+          </tr>
+        )
+      })}
       </tbody>
     </table>
   )
-}
+};
+
+export default QuestionsTable;

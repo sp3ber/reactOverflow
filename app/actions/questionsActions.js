@@ -21,7 +21,7 @@ function questionsRequestError(error) {
 
 export function questionsRequest(q, page, pagesize = PAGE_SIZE) {
   return (dispatch, getState) => {
-    const pageToLoad = page ? getState().questions.page + 1 : 1;
+    const pageToLoad = page || getState().questions.page + 1;
     dispatch(questionsRequestStarted());
     return axios(`${API_URL}/questions?`, {
       params: {
