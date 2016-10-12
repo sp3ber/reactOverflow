@@ -12,3 +12,5 @@ Run:
 
   - `npm install`
   - `npm start`
+  
+...and open in browser localhost:5000
