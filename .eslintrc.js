@@ -25,6 +25,7 @@ module.exports = {
     "react/forbid-prop-types": ["off"],
     "class-methods-use-this": ["off"],
     "no-unescaped-entities": ["off"],
-    "arrow-parens": ["off"]
+    "arrow-parens": ["off"],
+    "no-extra-boolean-cast": ["off"]
   },
 };

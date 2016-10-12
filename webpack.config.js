@@ -1,5 +1,4 @@
 const autoprefixer = require('autoprefixer');
-var webpack = require('webpack');
 
 module.exports = {
   entry: './app/',
@@ -8,13 +7,13 @@ module.exports = {
     filename: 'app.js'
   },
   module: {
-/*    preLoaders: [
+    preLoaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
-    ],*/
+    ],
     loaders: [
       {
         test: /\.js/,
@@ -42,5 +41,6 @@ module.exports = {
     ]
   },
   postcss: () => [autoprefixer],
-  sassResources: ['./app/assets/scss/variables.scss']
+  sassResources: ['./app/assets/scss/variables.scss'],
+  devtool: "inline-source-map"
 };

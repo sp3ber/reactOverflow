@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host localhost --historyApiFallback true",
-    "nodemon": "set NODE_PATH=./app; && nodemon server.js"
+    "server-win": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host localhost --historyApiFallback true",
+    "nodemon-win": "set NODE_PATH=./app; && nodemon server.js",
+    "start": "webpack && node server.js"
   },
   "keywords": [],
   "author": "",
@@ -48,14 +48,11 @@
   },
   "dependencies": {
     "axios": "^0.14.0",
-    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.4",
     "classnames": "^2.2.5",
     "es6-promise": "^4.0.5",
     "express": "^4.14.0",
-    "fetch": "^1.1.0",
-    "isomorphic-fetch": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

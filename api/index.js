@@ -3,25 +3,31 @@ const request = require('request-promise');
 
 const router = express.Router();
 const API_URL = 'http://api.stackexchange.com/2.2/search';
+const PROXY_SERVER = 'http://128.199.91.174:8080'; // for testing, SO blocking ip with many requests
 const defaultOptions = {
   method: 'GET',
+  proxy: PROXY_SERVER,
   json: true,
   gzip: true,
   uri: API_URL
 };
-const defaultQueryOptions = {
-  order: "desc",
-  sort: "relevance",
-  site: "stackoverflow"
+const defaultQueryParams = {
+  order: 'desc',
+  sort: 'relevance',
+  site: 'stackoverflow'
 };
+const RUSSIAN_SITE = 'ru.stackoverflow';
 const simpleCache = {};
 
 router.get('/questions', function(req, res){
   const queryParams = req.query;
   const options = Object.assign({}, defaultOptions);
-  options.qs = Object.assign({}, defaultQueryOptions, queryParams);
+  options.qs = Object.assign({}, defaultQueryParams, queryParams);
+  if (isRussianQuery(queryParams.intitle)) {
+    options.qs.site = RUSSIAN_SITE;
+  }
 
-  let cacheKey = JSON.stringify(options);
+  const cacheKey = JSON.stringify(options);
   if (simpleCache[cacheKey]) {
     return res.json(simpleCache[cacheKey]);
   }
@@ -30,19 +36,23 @@ router.get('/questions', function(req, res){
       simpleCache[cacheKey] = response;
       return res.json(response);
     })
-    .catch(function (err) {
-      // Something bad happened, handle the error
-      console.log(err);
-      return res.json({
-        success: false,
-        error: 'Stack api is not available',
-        err
-      })
-    });
+    .catch((err) => (errHandler(err, res)));
 });
 
-function isTitleQueryValid (title) {
-  return typeof title == 'string' && title.trim().length;
+function errHandler(err, res) {
+  console.log(err);
+  return res
+    .status(503)
+    .json({
+      error: 'Stack api is not available',
+      err
+    })
+}
+function isRussianQuery(query) {
+  if (typeof query === 'string') {
+    return /[а-я]/i.test(decodeURI(query));
+  }
+  return false;
 }
 
 module.exports = router;

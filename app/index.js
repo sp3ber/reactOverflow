@@ -6,7 +6,6 @@ import routes from './routes';
 import initStore from './store';
 
 const store = initStore();
-
 const rootElement = document.querySelector('#app');
 
 render(

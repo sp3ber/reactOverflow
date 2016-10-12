@@ -35,7 +35,7 @@ export default function (state = initialState, action) {
         page: 0
       };
     case QUESTIONS_REQUEST_ERROR:
-      return Object.assign({}, state, { loading: false, errors: action.errors });
+      return Object.assign({}, state, { loading: false, errors: action.error });
     default:
       return state;
   }

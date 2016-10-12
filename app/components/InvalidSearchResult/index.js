@@ -1,11 +1,11 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import cn from 'classnames';
 import EmptySearchIco from '../icons/SearchError';
 
 import './styles.scss';
 
 const InvalidSearchResult = (props) => {
-  const { title, className, warnText } = props;
+  const { title, className, children } = props;
   return (
     <div className={cn(
       'search-error',
@@ -18,7 +18,7 @@ const InvalidSearchResult = (props) => {
         { title }
       </div>
       <div className="search-error__text">
-        { warnText }
+        { children }
       </div>
     </div>
   );
@@ -26,7 +26,7 @@ const InvalidSearchResult = (props) => {
 
 InvalidSearchResult.propTypes = {
   title: PropTypes.string.isRequired,
-  warnText: PropTypes.string,
+  children: PropTypes.node,
   className: PropTypes.string
 };
 

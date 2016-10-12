@@ -10,12 +10,11 @@ class MainPage extends Component {
     location: PropTypes.object
   };
   onSearchFormSubmit(value) {
-    const query = encodeURI(value);
-    browserHistory.push(`${search}?${searchQueryName}=${query}`);
+    browserHistory.push(`${search}?${searchQueryName}=${value}`);
   }
   render() {
     const initialValue = this.props.location.query[searchQueryName] ||
-      'Если React это как стул с пиками точеными, то получается, что Angular ...?';
+      'Как работают замыкания?';
     return (
       <div className="main-page">
         <section className="main-page__form">
@@ -30,7 +29,7 @@ class MainPage extends Component {
           <p className="main-page__p p-t-1 p-b-1">
             This is the best Miha service sponsored by
           </p>
-          <div className="main-page__brand-logo ">
+          <div className="main-page__brand-logo">
             <span className="sr-only">Stack Overflow</span>
           </div>
         </section>
