@@ -26,6 +26,7 @@ module.exports = {
     "class-methods-use-this": ["off"],
     "no-unescaped-entities": ["off"],
     "arrow-parens": ["off"],
-    "no-extra-boolean-cast": ["off"]
-  },
+    "no-extra-boolean-cast": ["off"],
+    "linebreak-style": "off"
+  }
 };
