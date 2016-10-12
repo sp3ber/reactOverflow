@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import CSSTransition from 'react-addons-css-transition-group';
 import { index, search, searchQueryName } from '../../../constants/routes';
 import { questionsRequest, clearQuestions } from '../../../actions/questionsActions';
 import SearchForm from '../../../components/SearchForm';
@@ -77,7 +78,15 @@ class SearchPage extends Component {
               </InvalidSearchResult>
           }
           {
-            !!questions.length && <QuestionsTable questions={questions} />
+            !!questions.length &&
+              <CSSTransition
+                transitionName="search-page__animated-table"
+                transitionAppear
+                transitionEnter={false}
+                transitionLeave={false}
+                transitionAppearTimeout={300}>
+                <QuestionsTable questions={questions} />
+              </CSSTransition>
           }
         </div>
         <div className="search-page__controls">

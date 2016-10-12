@@ -3,4 +3,15 @@
   &__controls {
     text-align: center;
   }
+
+  &__animated-table {
+
+    &-appear {
+      opacity: 0.01;
+    }
+    &-appear-active {
+      opacity: 1;
+      transition: opacity .3s ease-in;
+    }
+  }
 }

@@ -24,20 +24,9 @@ const QuestionsTable = (props) => {
             <tr key={index} className={cn({ 'table-success': question.is_answered })}>
               <th scope="row">{index}</th>
               <td>{question.creation_date}</td>
-              <td>
-                <a href={question.link}>
-                  {question.title}
-                </a>
-              </td>
+              <td><a href={question.link}>{question.title}</a></td>
               <td>{question.owner.display_name}</td>
-              <td>
-                {
-                  !!question.is_answered ?
-                    'Yes'
-                    :
-                    'No'
-                }
-              </td>
+              <td>{!!question.is_answered ? 'Yes' : 'No'}</td>
             </tr>
           ))}
         </tbody>
