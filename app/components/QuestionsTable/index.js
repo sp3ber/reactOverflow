@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
 import cn from 'classnames';
 
+const humanizeDateFromSeconds = (secondsTimestamp) => {
+  const currDate = new Date(null);
+  currDate.setTime(secondsTimestamp * 1000);
+  return currDate.toLocaleString();
+};
+
 const QuestionsTable = (props) => {
   const { questions } = props;
   return (
@@ -23,7 +29,7 @@ const QuestionsTable = (props) => {
                */
             <tr key={index} className={cn({ 'table-success': question.is_answered })}>
               <th scope="row">{index}</th>
-              <td>{question.creation_date}</td>
+              <td>{humanizeDateFromSeconds(question.creation_date)}</td>
               <td><a href={question.link}>{question.title}</a></td>
               <td>{question.owner.display_name}</td>
               <td>{!!question.is_answered ? 'Yes' : 'No'}</td>
