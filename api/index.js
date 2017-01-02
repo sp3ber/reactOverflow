@@ -6,7 +6,7 @@ const API_URL = 'http://api.stackexchange.com/2.2/search';
 const PROXY_SERVER = 'http://128.199.91.174:8080'; // for testing, SO blocking ip with many requests
 const defaultOptions = {
   method: 'GET',
-  proxy: PROXY_SERVER,
+  //proxy: PROXY_SERVER,
   json: true,
   gzip: true,
   uri: API_URL

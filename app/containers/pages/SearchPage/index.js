@@ -55,14 +55,14 @@ class SearchPage extends Component {
     const { query } = location;
     const { [searchQueryName]: question } = query;
     return (
-      <section className="search-page container p-t-1 p-b-2">
+      <section className="search-page container pt-1 pb-2">
         <div className="search-page__breadcrumb">
           <Link to={index}>Back to main</Link>
         </div>
-        <div className="p-t-2 p-b-2">
+        <div className="pt-2 pb-2">
           <SearchForm onSubmit={this.onSearchFormSubmit} initialValue={question} />
         </div>
-        <div className="p-t-2 p-b-2 search-page__content">
+        <div className="pt-2 pb-2 search-page__content">
           {
             !!loading && !questions.length && <Spinner className="search-page__spinner" />
           }
