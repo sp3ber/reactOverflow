@@ -1,5 +1,5 @@
 node_modules/
-public/*.js
-public/*.map
+public/
+public
 npm-debug.log*
 .idea

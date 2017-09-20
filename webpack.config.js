@@ -1,46 +1,59 @@
-const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './app/',
   output: {
-    path: __dirname + '/public',
+    path: `${__dirname}/public`,
     filename: 'app.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './app/index.html',
+      cache: false,
+      alwaysWriteToDisk: true
+    })
+  ],
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
-      }
-    ],
     loaders: [
       {
         test: /\.js/,
-        loader: 'react-hot!babel',
+        use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.html/,
-        loader: 'raw',
+        use: 'raw-loader',
         exclude: /node_modules/
       },
       {
         test: /\.scss/,
-        loader: 'style!css!sass!postcss!sass-resources'
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.css/,
-        loader: 'style!css'
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       },
       {
         test: /\.(svg)$/i,
-        loader: 'svg-url-loader',
+        use: 'svg-url-loader',
         exclude: /node_modules/
       }
     ]
   },
-  postcss: () => [autoprefixer],
-  sassResources: ['./app/assets/scss/variables.scss'],
-  devtool: "inline-source-map"
+  devServer: {
+    port: 3000,
+    hot: false,
+    historyApiFallback: true,
+    disableHostCheck: true,
+    contentBase: `${__dirname}/public/`
+  }
 };
