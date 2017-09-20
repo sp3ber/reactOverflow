@@ -3,10 +3,8 @@ const request = require('request-promise');
 
 const router = express.Router();
 const API_URL = 'http://api.stackexchange.com/2.2/search';
-const PROXY_SERVER = 'http://128.199.91.174:8080'; // for testing, SO blocking ip with many requests
 const defaultOptions = {
   method: 'GET',
-  //proxy: PROXY_SERVER,
   json: true,
   gzip: true,
   uri: API_URL
@@ -19,7 +17,7 @@ const defaultQueryParams = {
 const RUSSIAN_SITE = 'ru.stackoverflow';
 const simpleCache = {};
 
-router.get('/questions', function(req, res){
+router.get('/questions', (req, res) => {
   const queryParams = req.query;
   const options = Object.assign({}, defaultOptions);
   options.qs = Object.assign({}, defaultQueryParams, queryParams);
@@ -32,7 +30,7 @@ router.get('/questions', function(req, res){
     return res.json(simpleCache[cacheKey]);
   }
   request(options)
-    .then(function (response) {
+    .then((response) => {
       simpleCache[cacheKey] = response;
       return res.json(response);
     })
@@ -46,7 +44,7 @@ function errHandler(err, res) {
     .json({
       error: 'Stack api is not available',
       err
-    })
+    });
 }
 function isRussianQuery(query) {
   if (typeof query === 'string') {

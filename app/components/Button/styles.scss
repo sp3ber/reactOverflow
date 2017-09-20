@@ -11,7 +11,7 @@
   height: 55px;
   padding: 16px 78px 18px 78px;
   color: white;
-  background: $color-brand-primary;
+  background: #00a3e0;
   text-align: center;
   border-radius: 5px;
   border: 0;
@@ -19,7 +19,7 @@
   position: relative;
 
   &:disabled {
-    background: $color-brand-disabled;
+    background: grey;
   }
 
   &__loader {
@@ -47,7 +47,7 @@
     }
 
     &:after {
-      background: $color-brand-primary;
+      background: #00a3e0;
       width: 75%;
       height: 75%;
       border-radius: 50%;
@@ -62,6 +62,6 @@
   }
 
   &:disabled &__loader:after {
-    background: $color-brand-disabled;
+    background: grey;
   }
 }

@@ -14,7 +14,7 @@ class MainPage extends Component {
   }
   render() {
     const initialValue = this.props.location.query[searchQueryName] ||
-      'Как работают замыкания?';
+      'javascript closure inside loops';
     return (
       <div className="main-page">
         <section className="main-page__form">
@@ -27,7 +27,7 @@ class MainPage extends Component {
         </section>
         <section className="main-page__present container">
           <p className="main-page__p pt-1 pb-1">
-            This is the best Miha service sponsored by
+            sponsored by
           </p>
           <div className="main-page__brand-logo">
             <span className="sr-only">Stack Overflow</span>
