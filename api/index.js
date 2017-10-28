@@ -19,8 +19,8 @@ const simpleCache = {};
 
 router.get('/questions', (req, res) => {
   const queryParams = req.query;
-  const options = Object.assign({}, defaultOptions);
-  options.qs = Object.assign({}, defaultQueryParams, queryParams);
+  const options = {...defaultOptions};
+  options.qs = {...defaultQueryParams, queryParams};
   if (isRussianQuery(queryParams.intitle)) {
     options.qs.site = RUSSIAN_SITE;
   }
